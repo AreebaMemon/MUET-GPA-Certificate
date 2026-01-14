@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUET SZAB GPA Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf-autotable.min.js"></script>
+    <script>
+        // Wait for libraries to load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (typeof window.jspdf === 'undefined') {
+                    console.error('❌ jsPDF not loaded');
+                    alert('Error: jsPDF library failed to load. Please check your internet connection and refresh the page.');
+                } else {
+                    console.log('✅ jsPDF loaded');
+                }
+                
+                // Test if autoTable is available
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const testDoc = new jsPDF();
+                    if (typeof testDoc.autoTable === 'function') {
+                        console.log('✅ jsPDF-AutoTable loaded and working');
+                    } else {
+                        console.error('❌ jsPDF-AutoTable not attached to jsPDF');
+                        console.log('Trying to load alternative CDN...');
+                        // Try alternative CDN
+                        const script = document.createElement('script');
+                        script.src = 'https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.31';
+                        script.onload = function() {
+                            console.log('✅ Alternative CDN loaded');
+                        };
+                        script.onerror = function() {
+                            console.error('❌ Alternative CDN also failed');
+                        };
+                        document.head.appendChild(script);
+                    }
+                } catch (e) {
+                    console.error('Error testing autoTable:', e);
+                }
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MUET SZAB GPA Calculator</h1>
+            <p>Mehran University of Engineering & Technology<br>Shaheed Zulfiqar Ali Bhutto Campus, Khairpur Mir's</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Student Information Section -->
+            <section class="student-info">
+                <h2>Student Information</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="studentName">Student Name *</label>
+                        <input type="text" id="studentName" placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="rollNumber">Roll Number / I.D. No *</label>
+                        <input type="text" id="rollNumber" placeholder="e.g., K21SW031">
+                    </div>
+                    <div class="form-group">
+                        <label for="batch">Batch / Department *</label>
+                        <input type="text" id="batch" placeholder="e.g., Software Engineering">
+                    </div>
+                    <div class="form-group">
+                        <label for="semester">Semester *</label>
+                        <select id="semester">
+                            <option value="">Select Semester</option>
+                            <option value="First Semester">First Semester</option>
+                            <option value="Second Semester">Second Semester</option>
+                            <option value="Third Semester">Third Semester</option>
+                            <option value="Fourth Semester">Fourth Semester</option>
+                            <option value="Fifth Semester">Fifth Semester</option>
+                            <option value="Sixth Semester">Sixth Semester</option>
+                            <option value="Seventh Semester">Seventh Semester</option>
+                            <option value="Eighth Semester">Eighth Semester</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="examMonth">Examination Month *</label>
+                        <select id="examMonth">
+                            <option value="">Select Examination Month</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year *</label>
+                        <input type="text" id="year" placeholder="e.g., 2024">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subject Entry Section -->
+            <section class="subject-entry">
+                <h2>Add Subjects</h2>
+                <div class="subject-form">
+                    <div class="form-group">
+                        <label for="subjectName">Subject Name</label>
+                        <input type="text" id="subjectName" placeholder="e.g., Data Science & Analytics">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="subjectType">Type</label>
+                            <select id="subjectType">
+                                <option value="Theory">Theory</option>
+                                <option value="Practical">Practical</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="totalMarks" value="100">
+                        <input type="hidden" id="passingMarks" value="50">
+                        <div class="form-group">
+                            <label for="creditHours">Credit Hours</label>
+                            <select id="creditHours">
+                                <option value="">Select Credit Hours</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                             
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade">Grade *</label>
+                            <select id="grade">
+                                <option value="A+">A+ (4.0)</option>
+                                <option value="A">A (3.5)</option>
+                                <option value="B+">B+ (3.0)</option>
+                                <option value="B">B (2.5)</option>
+                                <option value="C+">C+ (2.0)</option>
+                                <option value="C">C (1.5)</option>
+                                <option value="C-">C- (1.0)</option>
+                                <option value="F">F (0.0)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" id="addSubjectBtn" class="btn btn-primary">Add Subject</button>
+                </div>
+            </section>
+
+            <!-- Subjects List Section -->
+            <section class="subjects-list">
+                <h2>Subjects Added</h2>
+                <div id="subjectsTableContainer">
+                    <table id="subjectsTable">
+                        <thead>
+                            <tr>
+                                <th>Code No</th>
+                                <th>Subject</th>
+                                <th>Type</th>
+                                <th>Total Marks</th>
+                                <th>Passing Marks</th>
+                                <th>Obtained Marks</th>
+                                <th>Credit Hours</th>
+                                <th>Grade</th>
+                                <th>Quality Points</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectsTableBody">
+                            <!-- Subjects will be added here -->
+                        </tbody>
+                        <tfoot id="subjectsTableFooter">
+                            <!-- Summary will be added here -->
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="actions">
+                    <button type="button" id="calculateBtn" class="btn btn-success">Calculate GPA</button>
+                    <button type="button" id="generatePdfBtn" class="btn btn-pdf" style="display: none;">Generate PDF</button>
+                    <button type="button" id="clearAllBtn" class="btn btn-danger">Clear All</button>
+                </div>
+                <div id="errorMessage" class="error-message"></div>
+                <div id="gpaResult" class="gpa-result"></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

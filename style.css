@@ -1,0 +1,233 @@
+/* -------------------------
+   Global Styling
+--------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #F2F7FF;
+    padding: 30px;
+    color: #10316B;
+}
+
+/* -------------------------
+   Container
+--------------------------*/
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* -------------------------
+   Header
+--------------------------*/
+header h1 {
+    text-align: center;
+    color: #0B409C;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+header p {
+    text-align: center;
+    font-size: 14px;
+    color: #10316B;
+}
+
+/* -------------------------
+   Section Headings
+--------------------------*/
+h2 {
+    margin: 25px 0 15px;
+    color: #0B409C;
+    border-left: 5px solid #FFE867;
+    padding-left: 10px;
+}
+
+/* -------------------------
+   Forms
+--------------------------*/
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #d9e4ff;
+    border-radius: 7px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #0B409C;
+}
+
+/* Row inside subject form */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+/* -------------------------
+   Buttons
+--------------------------*/
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn-primary {
+    background: #0B409C;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #082f73;
+}
+
+.btn-success {
+    background: #10316B;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background: #0a244e;
+}
+
+.btn-danger {
+    background: #d9534f;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #b94743;
+}
+
+/* Remove button in table */
+.btn-remove {
+    background: #d9534f;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-remove:hover {
+    background: #b94743;
+}
+
+.btn-pdf {
+    background: #FFE867;
+    color: #10316B;
+    font-weight: bold;
+}
+
+.btn-pdf:hover {
+    background: #e8d259;
+}
+
+.actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* -------------------------
+   Table Styling
+--------------------------*/
+#subjectsTableContainer {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+#subjectsTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+#subjectsTable th,
+#subjectsTable td {
+    border: 1px solid #d9e4ff;
+    padding: 10px;
+    text-align: center;
+}
+
+#subjectsTable th {
+    background: #0B409C;
+    color: white;
+}
+
+#subjectsTable tbody tr:nth-child(even) {
+    background: #F2F7FF;
+}
+
+/* Action delete button */
+.delete-btn {
+    background: #d9534f;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #b94743;
+}
+
+/* -------------------------
+   GPA Result
+--------------------------*/
+.gpa-result {
+    margin-top: 25px;
+    padding: 15px;
+    background: #EAF1FF;
+    border-left: 5px solid #0B409C;
+    border-radius: 8px;
+    font-size: 18px;
+    display: none;
+}
+
+/* Error message */
+.error-message {
+    margin-top: 10px;
+    color: red;
+    font-weight: bold;
+}
+
+/* -------------------------
+   Responsive
+--------------------------*/
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+    }
+}
