@@ -1,4 +1,4 @@
-# MUET SZAB GPA Certificate
+# MUET SZAB GPA PDF
 
 A web-based GPA calculator for students at Mehran University of Engineering & Technology (MUET), Shaheed Zulfiqar Ali Bhutto Campus, Khairpur Mir's.
 
